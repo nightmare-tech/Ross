@@ -7,6 +7,7 @@
 pub mod vga_buffer;
 pub mod serial;
 pub mod interrupts;
+pub mod gdt;
 
 use core::panic::PanicInfo;
 
@@ -20,6 +21,7 @@ pub extern "C" fn _start() -> ! {
 }
 
 pub fn init() {
+    gdt::init();
     interrupts::init_idt();
 }
 

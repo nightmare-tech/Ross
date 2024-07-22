@@ -4,10 +4,10 @@
 #![feature(abi_x86_interrupt)]
 #![test_runner(crate::test_runner)]
 #![reexport_test_harness_main = "test_main"]
-pub mod vga_buffer;
-pub mod serial;
-pub mod interrupts;
 pub mod gdt;
+pub mod interrupts;
+pub mod serial;
+pub mod vga_buffer;
 
 use core::panic::PanicInfo;
 
@@ -49,12 +49,11 @@ pub fn exit_qemu(exit_code: QemuExitCode) {
     }
 }
 
-
 pub trait Testable {
-   fn run(&self) -> (); 
+    fn run(&self) -> ();
 }
 
-impl <T> Testable for T
+impl<T> Testable for T
 where
     T: Fn(),
 {
@@ -79,8 +78,6 @@ pub fn test_panic_handler(info: &PanicInfo) -> ! {
     exit_qemu(QemuExitCode::Failed);
     hlt_loop();
 }
-
-
 
 #[cfg(test)]
 #[panic_handler]
